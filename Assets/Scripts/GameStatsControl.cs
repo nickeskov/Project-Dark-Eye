@@ -78,7 +78,11 @@ class GameStatsControl : MonoBehaviour
     {
         if (Input.GetKeyDown("space"))
         {
-            ChangeLevel();
+            ChangeLevel(3);
+        }
+        else if (Input.GetKeyDown("backspace"))
+        {
+            ChangeLevel(2);
         }
     }
 
@@ -375,12 +379,12 @@ class GameStatsControl : MonoBehaviour
     }
 
 
-    public void ChangeLevel()
+    public void ChangeLevel(int lvl)
     {
 
        // int lvl = Application.loadedLevel(); этот метод-obsolete, нужно заменить потом
        // if(lvl == 2) lvl = 3;
-        SceneManager.LoadScene(3);
+        SceneManager.LoadScene(lvl);
     }
 
 

@@ -32,10 +32,11 @@ public class MazeLoader : MonoBehaviour
                 int chance1 = Random.Range(0, 19);
 
                 _mazeCells[r, c].Floor = Instantiate(chance1 == 4 ? FloorWithDebris : Floor, new Vector3(r * Size, 0, c * Size - 3f), Quaternion.identity);
+               
 
                 _mazeCells[r, c].Floor.transform.parent = parent.transform;
                 _mazeCells[r, c].Floor.name = "Floor " + r + " " + c;
-                _mazeCells[r, c].Floor.transform.Rotate(Vector3.right, 90f);
+                _mazeCells[r, c].Floor.transform.Rotate(Vector3.right, 90f); 
 
 
                 if (r == 0)
