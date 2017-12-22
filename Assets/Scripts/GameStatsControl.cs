@@ -41,11 +41,6 @@ class GameStatsControl : MonoBehaviour
     public Image ScreenImage;
     public string currentSatge;
     #endregion
-
-    public Text FlagScoreText;
-
-    public Text TimeText;
-    private float _timerForGame;
     public static bool OnFired = false;
     #region AudioVariables
     public AudioMixerSnapshot Calm;
@@ -66,7 +61,6 @@ class GameStatsControl : MonoBehaviour
     void Start()
     {
         _timerForBrain = 0f;
-        _timerForGame = 800f;
         StartCoroutine(CalmState());
         _playerLooker = GameObject.FindGameObjectWithTag("Player").GetComponent<MouseLooker>();
     }
@@ -77,8 +71,15 @@ class GameStatsControl : MonoBehaviour
 
         FireSliderControl(FireValue);
         RunSliderControl();
-        FlagController();
-        TimeTextChanges();
+        IsCheatActive();
+    }
+
+    void IsCheatActive()
+    {
+        if (Input.GetKeyDown("space"))
+        {
+            ChangeLevel();
+        }
     }
 
     void FireSliderControl(float fireValue)
@@ -175,67 +176,6 @@ class GameStatsControl : MonoBehaviour
     {
         return ScreenImage.color = Color.Lerp(ScreenImage.color, Color.clear, 1f);
     }
-
-
-    void FlagController()
-    {
-        //  FlagScoreText.text = FlagsController.NumOfFlags.ToString();
-    }
-
-    void TimeTextChanges()
-    {
-        _timerForGame -= Time.deltaTime;
-
-        if (_timerForGame <= 720f)
-        {
-            TimeText.text = "1:AM";
-        }
-
-        if (_timerForGame <= 630f)
-        {
-            TimeText.text = "2:AM";
-        }
-
-        if (_timerForGame <= 540f)
-        {
-            TimeText.text = "3:AM";
-        }
-
-        if (_timerForGame <= 450f)
-        {
-            TimeText.text = "4:AM";
-        }
-
-        if (_timerForGame <= 360f)
-        {
-            TimeText.text = "5:AM";
-            TimeText.color = new Color(163f, 174f, 53f, 1f);
-        }
-
-        if (_timerForGame <= 270f)
-        {
-            TimeText.text = "6:AM";
-        }
-
-        if (_timerForGame <= 180f)
-        {
-            TimeText.text = "7:AM";
-        }
-
-        if (_timerForGame <= 90f)
-        {
-            TimeText.text = "8:AM";
-            TimeText.color = new Color(197f, 59f, 28f, 1f);
-        }
-
-        if (_timerForGame <= 0f)
-        {
-            BlockActivity();
-
-        }
-    }
-
-
 
     public IEnumerator CalmState()
     {
@@ -437,6 +377,9 @@ class GameStatsControl : MonoBehaviour
 
     public void ChangeLevel()
     {
+
+       // int lvl = Application.loadedLevel(); этот метод-obsolete, нужно заменить потом
+       // if(lvl == 2) lvl = 3;
         SceneManager.LoadScene(3);
     }
 
