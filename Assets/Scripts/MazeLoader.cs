@@ -66,6 +66,8 @@ public class MazeLoader : MonoBehaviour
                 _mazeCells[r, c].EastWall.name = "EastWall" + r + "," + c;
             }
         }
+
+        _mazeCells[31, 31].EastWall.SetActive(false);
     }
 }
 

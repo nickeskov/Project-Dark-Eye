@@ -131,6 +131,9 @@ class GameStatsControl : MonoBehaviour
             _timerForRun = 0f;
         }
 
+        else {
+            SpeedRun.CurrentSpeed = 4f; }
+
         if (AccelerationSlider.value <= 0f)
         {
             IsTired = true;
@@ -146,7 +149,7 @@ class GameStatsControl : MonoBehaviour
                 _myRunStripe.color = Color.clear;
                 IsTired = false;
             }
-            AccelerationSlider.value += .8f;
+            AccelerationSlider.value += 1.6f;
         }
     }
 
