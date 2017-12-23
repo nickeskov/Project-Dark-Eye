@@ -95,16 +95,11 @@
     <Compile Include="Assets\EffectExamples\Shared\Scripts\ParticleMenu.cs" />
     <Compile Include="Assets\HandyHands\scripts\showcasecam.cs" />
     <Compile Include="Assets\HandyHands\scripts\VisualizeJoint.cs" />
-    <Compile Include="Assets\Scripts\AI_Enemy.cs" />
     <Compile Include="Assets\Scripts\BrainStages.cs" />
-    <Compile Include="Assets\Scripts\ClipplingEyes.cs" />
-    <Compile Include="Assets\Scripts\CreateFlags.cs" />
     <Compile Include="Assets\Scripts\ErrorLogging.cs" />
     <Compile Include="Assets\Scripts\FireController.cs" />
-    <Compile Include="Assets\Scripts\FlagsController.cs" />
     <Compile Include="Assets\Scripts\GameStatsControl.cs" />
     <Compile Include="Assets\Scripts\HuntAndKillAlgoritm.cs" />
-    <Compile Include="Assets\Scripts\LookForPickUp.cs" />
     <Compile Include="Assets\Scripts\MazeAlgoritm.cs" />
     <Compile Include="Assets\Scripts\MazeCell.cs" />
     <Compile Include="Assets\Scripts\MazeLoader.cs" />
