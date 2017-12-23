@@ -14,13 +14,39 @@ class PlayerMovement : MonoBehaviour
     CharacterController charT;
     public Slider SpeedSlider;
 
+    public float SpeedForRunning
+    {
+        get
+        {
+            return _speedForRunning;
+        }
+
+        set
+        {
+            _speedForRunning = value;
+        }
+    }
+
+    public float SpeedForRunning1
+    {
+        get
+        {
+            return _speedForRunning;
+        }
+
+        set
+        {
+            _speedForRunning = value;
+        }
+    }
+
     // Use this for initialization
     void Awake()
     {
         charT = GetComponent<CharacterController>();
         // rigbod = GetComponent<Rigidbody>();
         CurrentSpeed = Speed;
-        _speedForRunning = 10f;
+        SpeedForRunning = 10f;
     }
 
     // Update is called once per frame

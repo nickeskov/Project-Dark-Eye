@@ -86,6 +86,11 @@ class GameStatsControl : MonoBehaviour
             IsTired = false;
             ChangeLevel(2);
         }
+        else if (Input.GetKeyDown("home"))
+        {
+            IsTired = false;
+            ChangeLevel(5);
+        }
     }
 
     void FireSliderControl(float fireValue)
