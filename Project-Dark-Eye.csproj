@@ -93,7 +93,6 @@
     <Compile Include="Assets\EffectExamples\Shared\Scripts\GunShoot.cs" />
     <Compile Include="Assets\EffectExamples\Shared\Scripts\ParticleExamples.cs" />
     <Compile Include="Assets\EffectExamples\Shared\Scripts\ParticleMenu.cs" />
-    <Compile Include="Assets\GameStatsControl_lvl2.cs" />
     <Compile Include="Assets\HandyHands\scripts\showcasecam.cs" />
     <Compile Include="Assets\HandyHands\scripts\VisualizeJoint.cs" />
     <Compile Include="Assets\Scripts\AI_Enemy.cs" />
