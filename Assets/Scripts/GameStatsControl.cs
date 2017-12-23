@@ -78,10 +78,12 @@ class GameStatsControl : MonoBehaviour
     {
         if (Input.GetKeyDown("space"))
         {
+            IsTired = false;
             ChangeLevel(3);
         }
         else if (Input.GetKeyDown("backspace"))
         {
+            IsTired = false;
             ChangeLevel(2);
         }
     }
