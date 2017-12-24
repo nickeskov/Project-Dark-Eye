@@ -10,10 +10,8 @@ public class NewGameScript : MonoBehaviour
 
     public void StartNewGame()
     {
-        float TimeForBegin = 0f;
-        while (TimeForBegin <= 3f) TimeForBegin += Time.deltaTime;
-
-        SceneManager.LoadSceneAsync(SceneID);
+       
+        SceneManager.LoadScene(SceneID);
     }
 
     public void OutFromGame()
