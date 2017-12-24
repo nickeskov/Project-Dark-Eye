@@ -33,7 +33,6 @@ public class MazeLoader : MonoBehaviour
 
                 _mazeCells[r, c].Floor = Instantiate(chance1 == 4 ? FloorWithDebris : Floor, new Vector3(r * Size, 0, c * Size - 3f), Quaternion.identity);
                
-
                 _mazeCells[r, c].Floor.transform.parent = parent.transform;
                 _mazeCells[r, c].Floor.name = "Floor " + r + " " + c;
                 _mazeCells[r, c].Floor.transform.Rotate(Vector3.right, 90f); 
