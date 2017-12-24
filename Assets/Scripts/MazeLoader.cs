@@ -66,7 +66,14 @@ public class MazeLoader : MonoBehaviour
             }
         }
 
-        _mazeCells[31, 31].EastWall.SetActive(false);
+        MeshRenderer RenderedImage = _mazeCells[0, 1].NorthWall.GetComponent<MeshRenderer>();
+        RenderedImage.enabled = false;
+        BoxCollider BoxWall = _mazeCells[0, 1].NorthWall.GetComponent<BoxCollider>();
+        BoxWall.isTrigger = true;
+        BoxWall.size = new Vector3(BoxWall.size.x, BoxWall.size.y, 8f);
+        ParticleSystem EffectWall = _mazeCells[0, 1].NorthWall.AddComponent<ParticleSystem>();
+        _mazeCells[0, 1].NorthWall.gameObject.tag = "Exit";
+        EffectWall.Play();
     }
 }
 
