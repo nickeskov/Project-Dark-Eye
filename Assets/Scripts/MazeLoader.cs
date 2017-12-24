@@ -8,6 +8,7 @@ public class MazeLoader : MonoBehaviour
     public GameObject Floor;
     public GameObject FloorWithDebris;
     public GameObject parent;
+    public Material mater;
     public int Rows, Columns;
     public float Size = 2f;
 
@@ -73,13 +74,17 @@ public class MazeLoader : MonoBehaviour
         BoxWall.size = new Vector3(BoxWall.size.x, BoxWall.size.y, 8f);
         _mazeCells[0, 1].NorthWall.gameObject.tag = "Exit";
         ParticleSystem EffectWall = _mazeCells[0, 1].NorthWall.AddComponent<ParticleSystem>();
-       // Renderer psr = EffectWall.GetComponent<Renderer>();
         EffectWall.Stop();
-        var Particles = EffectWall.main;
+        ParticleSystem.MainModule Particles = EffectWall.main;
         Particles.startColor = Color.green;
-       // psr.mesh = Resources.GetBuiltinResource<Mesh>("Capsule.fbx");
-        //psr.material
-        //ParticleSystemRenderMode renderMode = ParticleSystemRenderMode.Billboard;
+        Particles.startLifetime = 3;
+        ParticleSystemRenderer psr = EffectWall.GetComponent<ParticleSystemRenderer>();
+        psr.material = mater;
+        // ParticleSystem.EmissionModule Emission = EffectWall.emissionRate;
+        ParticleSystem.EmissionModule Emission = EffectWall.emission;
+        Emission.rateOverTime = 25;
+        ParticleSystem.ShapeModule Shape = EffectWall.shape;
+        Shape.angle = 10;
         EffectWall.Play();
     }
 }
