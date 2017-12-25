@@ -33,7 +33,7 @@ class GameStatsControl : MonoBehaviour
     public Image BrainIcon;
     public Sprite[] BrainIconStages = new Sprite[4];
 
-    private float _timerForBrain;
+    public float _timerForBrain;
     public enum BrainStages
     {
         Warning1, Warning2, Warning3
@@ -55,7 +55,8 @@ class GameStatsControl : MonoBehaviour
     #endregion
 
     #region dead
-    private bool _dead = false;
+
+    public static bool _dead = false;
     public Canvas CanV;
     public PlayerMovement PlayerMovement;
     public MouseLooker mouselook;
@@ -74,9 +75,13 @@ class GameStatsControl : MonoBehaviour
     {
         // if (!IsFired) { if (OnFired) { IsFired = true; } }
 
+
+
+        //RefreshGameStatsTranslator();
         FireSliderControl(FireValue);
         RunSliderControl();
         IsCheatActive();
+        //UpdateFromGameStatsTranslator();
     }
 
     void IsCheatActive()
@@ -391,6 +396,7 @@ class GameStatsControl : MonoBehaviour
 
     void Die()
     {
+        _dead = true;
         PlayerMovement.enabled = false;
         CanV.gameObject.SetActive(true);
         mouselook.enabled = false;
@@ -400,11 +406,25 @@ class GameStatsControl : MonoBehaviour
 
     public void StartOver()
     {
+        _dead = false;
         SceneManager.LoadScene(2);
     }
     public void TitleScreen()
     {
         SceneManager.LoadScene(0);
     }
-}
 
+
+    private void UpdateFromGameStatsTranslator()
+    {
+        _timer = GameStatsTranslator._timer;
+        _timerForBrain = GameStatsTranslator._timerForBrain;
+    }
+
+    private void RefreshGameStatsTranslator()
+    {
+        GameStatsTranslator.FireSlider = FireSlider;
+        GameStatsTranslator._timer = _timer;
+        GameStatsTranslator._timerForBrain = _timerForBrain;
+    }
+}
