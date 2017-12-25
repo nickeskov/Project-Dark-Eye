@@ -15,7 +15,7 @@ class GameStatsControl : MonoBehaviour
     private float _timer = 0f;
 
     public ParticleSystem FireLight;
-    public static float FireValue = 20f;
+    public static float FireValue = 1f;
     #endregion
 
     #region Running Variables
@@ -115,7 +115,7 @@ class GameStatsControl : MonoBehaviour
         }
         else
         {
-            if (FireSlider.value >= 95f)
+            if (FireSlider.value >= 80f)
             {
                 Animator anim = FireInHand.GetComponent<Animator>();
                 int p = Animator.StringToHash("FireOn");
