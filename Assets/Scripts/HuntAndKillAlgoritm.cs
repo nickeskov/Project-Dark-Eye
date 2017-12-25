@@ -125,7 +125,7 @@ public class HuntAndKillAlgoritm : MazeAlgoritm
     {
         if (wall != null)
         {
-            GameObject.DestroyObject(wall);
+            GameObject.DestroyImmediate(wall);
         }
     }
 

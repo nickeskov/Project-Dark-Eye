@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Microsoft.Win32.SafeHandles;
 
 public class MazeLoader : MonoBehaviour
 {
@@ -10,6 +11,10 @@ public class MazeLoader : MonoBehaviour
     public GameObject parent;
     public Material mater, exit;
     public int Rows, Columns;
+
+    public float MinRowsLabirinthPart = 0.25f;
+    public float MinColumnsLabirinthPart = 0.25f;
+
     public float Size = 2f;
 
     private MazeCell[,] _mazeCells;
@@ -19,11 +24,7 @@ public class MazeLoader : MonoBehaviour
         InitializeCells();
         MazeAlgoritm mazeAlgoritm = new HuntAndKillAlgoritm(_mazeCells);
         mazeAlgoritm.CreateMaze();
-        int i = Random.Range(Rows - 1, Rows - 1);
-        int j = Random.Range(Columns - 1, Columns - 1);
-        GameObject exitMazeCell = _mazeCells[i, j].SoughtWall;
-        MakeExit(exitMazeCell);
-        // GenerateExit();
+        GenerateExit();
     }
 
     public void InitializeCells()
@@ -82,40 +83,48 @@ public class MazeLoader : MonoBehaviour
     {
         bool isExitGenerated = false;
 
-        int minDistanceRow = Rows - Rows / 5;
-        int minDistanceColumns = Columns - Columns / 5;
+        if (MinRowsLabirinthPart > 1f)
+        {
+            MinRowsLabirinthPart = 1;
+        }
+
+        if (MinColumnsLabirinthPart > 1f)
+        {
+            MinColumnsLabirinthPart = 1;
+        }
+
+        int minDistanceRow = (int)(Rows - Rows * MinRowsLabirinthPart);
+        int minDistanceColumns = (int)(Columns - Columns * MinColumnsLabirinthPart);
 
         while (!isExitGenerated)
         {
-
             int i = Random.Range(minDistanceRow, Rows - 1);
             int j = Random.Range(minDistanceColumns, Columns - 1);
 
             MazeCell exitMazeCell = _mazeCells[i, j];
 
-            if (exitMazeCell.EastWall != null)
+            if (exitMazeCell.EastWall)
             {
                 MakeExit(exitMazeCell.EastWall);
                 isExitGenerated = true;
-                Debug.Log("IsExitGenerated - EastWall " + i + ", " + j);
             }
-            else if (exitMazeCell.SoughtWall != null)
+            else if (exitMazeCell.SoughtWall)
             {
                 MakeExit(exitMazeCell.SoughtWall);
                 isExitGenerated = true;
-                Debug.Log("IsExitGenerated - SoughtWall " + i + ", " + j);
             }
-            else if (exitMazeCell.NorthWall != null)
+            else if (exitMazeCell.NorthWall)
             {
                 MakeExit(exitMazeCell.NorthWall);
                 isExitGenerated = true;
-                Debug.Log("IsExitGenerated - NorthWall " + i + ", " + j);
             }
-            else if (exitMazeCell.WestWall != null)
+            else if (exitMazeCell.WestWall)
             {
+                // Debug.Log(exitMazeCell.WestWall.GetType().ToString());
+
                 MakeExit(exitMazeCell.WestWall);
                 isExitGenerated = true;
-                Debug.Log("IsExitGenerated - WestWall " + i + ", " + j);
+                //Debug.Log("IsExitGenerated - WestWall " + i + ", " + j);
             }
         }
     }
