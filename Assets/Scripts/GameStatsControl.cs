@@ -15,7 +15,7 @@ class GameStatsControl : MonoBehaviour
     private float _timer = 0f;
 
     public ParticleSystem FireLight;
-    public static float FireValue = 0.1f;
+    public static float FireValue = 20f;
     #endregion
 
     #region Running Variables
@@ -54,8 +54,13 @@ class GameStatsControl : MonoBehaviour
     private float _transitionOut;
     #endregion
 
+    #region dead
+    private bool _dead = false;
+    public Canvas CanV;
+    public PlayerMovement PlayerMovement;
+    public MouseLooker mouselook;
+    #endregion
     public Text ScaryTextFeel;
-    public Canvas NextLevelCanvas;
 
 
     void Start()
@@ -119,7 +124,7 @@ class GameStatsControl : MonoBehaviour
         {
             Animator anim = FireInHand.GetComponent<Animator>();
             int p = Animator.StringToHash("FireOff");
-            anim.Play(p);
+           // anim.Play(p);
             Invoke("FireHandActivity", 2f);
             IsFired = false;
             Debug.Log(IsFired.ToString() + " IsFired" + p.ToString());
@@ -343,43 +348,7 @@ class GameStatsControl : MonoBehaviour
         BrainIcon.sprite = BrainIconStages[3];
         ScreenImage.color = Color.Lerp(ScreenImage.color, new Color(1f, 0f, 0f, 0.3f), 4.5f * Time.deltaTime);
         Invoke("ColorReset", 0.5f);
-        StartCoroutine(StageMadnessDeath());
-    }
-
-    public IEnumerator StageMadnessDeath()
-    {
-        Death.TransitionTo(60 / Bmp);
-        _timerForBrain += Time.deltaTime;
-        bool spec = true;
-        float timeForCalming = 0f;
-
-        while (spec)
-        {
-            if (IsFired)
-            {
-                _timerForBrain = 0f;
-                if (_timerForBrain == 0f)
-                {
-                    timeForCalming += Time.deltaTime;
-                    if (timeForCalming >= 5f)
-                    {
-                        StartCoroutine(StageDangerousCritical());
-                        yield break;
-                    }
-                }
-                yield return null;
-            }
-            else
-            {
-                _timerForBrain += Time.deltaTime;
-                if (_timerForBrain >= 7f)
-                {
-                    spec = false;
-                }
-                yield return null;
-            }
-        }
-        ScreenImage.color = Color.Lerp(ScreenImage.color, new Color(1f, 0f, 0f, 0.3f), 4.5f * Time.deltaTime);
+        Die();
     }
 
 
@@ -400,7 +369,6 @@ class GameStatsControl : MonoBehaviour
 
     public void BlockActivity()
     {
-        NextLevelCanvas.gameObject.SetActive(true);
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
         SpeedRun.enabled = false;
@@ -420,4 +388,23 @@ class GameStatsControl : MonoBehaviour
             FireLight.Play(true);
         }
     }
+
+    void Die()
+    {
+        PlayerMovement.enabled = false;
+        CanV.gameObject.SetActive(true);
+        mouselook.enabled = false;
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+    }
+
+    public void StartOver()
+    {
+        SceneManager.LoadScene(2);
+    }
+    public void TitleScreen()
+    {
+        SceneManager.LoadScene(0);
+    }
 }
+
