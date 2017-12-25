@@ -8,7 +8,7 @@ public class MazeLoader : MonoBehaviour
     public GameObject Floor;
     public GameObject FloorWithDebris;
     public GameObject parent;
-    public Material mater;
+    public Material mater,exit;
     public int Rows, Columns;
     public float Size = 2f;
 
@@ -67,25 +67,25 @@ public class MazeLoader : MonoBehaviour
             }
         }
 
-        MeshRenderer RenderedImage = _mazeCells[0, 1].NorthWall.GetComponent<MeshRenderer>();
-        RenderedImage.enabled = false;
-        BoxCollider BoxWall = _mazeCells[0, 1].NorthWall.GetComponent<BoxCollider>();
-        BoxWall.isTrigger = true;
-        BoxWall.size = new Vector3(BoxWall.size.x, BoxWall.size.y, 8f);
-        _mazeCells[0, 1].NorthWall.gameObject.tag = "Exit";
-        ParticleSystem EffectWall = _mazeCells[0, 1].NorthWall.AddComponent<ParticleSystem>();
-        EffectWall.Stop();
-        ParticleSystem.MainModule Particles = EffectWall.main;
-        Particles.startColor = Color.green;
-        Particles.startLifetime = 3;
-        ParticleSystemRenderer psr = EffectWall.GetComponent<ParticleSystemRenderer>();
-        psr.material = mater;
-        // ParticleSystem.EmissionModule Emission = EffectWall.emissionRate;
-        ParticleSystem.EmissionModule Emission = EffectWall.emission;
-        Emission.rateOverTime = 25;
-        ParticleSystem.ShapeModule Shape = EffectWall.shape;
-        Shape.angle = 10;
-        EffectWall.Play();
+         MeshRenderer RenderedImage = _mazeCells[0, 1].NorthWall.GetComponent<MeshRenderer>();
+        RenderedImage.material = exit;
+        // RenderedImage.enabled=false;
+         BoxCollider BoxWall = _mazeCells[0, 1].NorthWall.GetComponent<BoxCollider>();
+         BoxWall.isTrigger = true;
+         BoxWall.size = new Vector3(BoxWall.size.x, BoxWall.size.y, 8f);
+         _mazeCells[0, 1].NorthWall.gameObject.tag = "Exit";
+         ParticleSystem EffectWall = _mazeCells[0, 1].NorthWall.AddComponent<ParticleSystem>();
+         EffectWall.Stop();
+         ParticleSystem.MainModule Particles = EffectWall.main;
+         Particles.startColor = Color.green;
+         Particles.startLifetime = 3;
+         ParticleSystemRenderer psr = EffectWall.GetComponent<ParticleSystemRenderer>();
+         psr.material = mater;
+         ParticleSystem.EmissionModule Emission = EffectWall.emission;
+         Emission.rateOverTime = 25;
+         ParticleSystem.ShapeModule Shape = EffectWall.shape;
+         Shape.angle = 10;
+         EffectWall.Play();
     }
 }
 
