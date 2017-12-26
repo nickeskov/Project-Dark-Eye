@@ -15,7 +15,7 @@ class GameStatsControl : MonoBehaviour
     private float _timer = 0f;
 
     public ParticleSystem FireLight;
-    public static float FireValue = 1f;
+    public static float FireValue = 10f;
     #endregion
 
     #region Running Variables
@@ -86,17 +86,17 @@ class GameStatsControl : MonoBehaviour
 
     void IsCheatActive()
     {
-        if (Input.GetKeyDown("space"))
+        if (Input.GetKeyDown("2"))
         {
             IsTired = false;
             ChangeLevel(3);
         }
-        else if (Input.GetKeyDown("backspace"))
+        else if (Input.GetKeyDown("1"))
         {
             IsTired = false;
             ChangeLevel(2);
         }
-        else if (Input.GetKeyDown("home"))
+        else if (Input.GetKeyDown("3"))
         {
             IsTired = false;
             ChangeLevel(5);
@@ -129,7 +129,6 @@ class GameStatsControl : MonoBehaviour
         {
             Animator anim = FireInHand.GetComponent<Animator>();
             int p = Animator.StringToHash("FireOff");
-           // anim.Play(p);
             Invoke("FireHandActivity", 2f);
             IsFired = false;
             Debug.Log(IsFired.ToString() + " IsFired" + p.ToString());
@@ -365,9 +364,6 @@ class GameStatsControl : MonoBehaviour
 
     public void ChangeLevel(int lvl)
     {
-
-       // int lvl = Application.loadedLevel(); этот метод-obsolete, нужно заменить потом
-       // if(lvl == 2) lvl = 3;
         SceneManager.LoadScene(lvl);
     }
 
