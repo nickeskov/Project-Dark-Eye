@@ -15,7 +15,7 @@ class GameStatsControl : MonoBehaviour
     private float _timer = 0f;
 
     public ParticleSystem FireLight;
-    public static float FireValue = 0.7f;
+    public static float FireValue = 0.4f;
     #endregion
 
     #region Running Variables
@@ -60,6 +60,8 @@ class GameStatsControl : MonoBehaviour
     public Canvas CanV;
     public PlayerMovement PlayerMovement;
     public MouseLooker mouselook;
+    //public AudioSource DeathScream;
+    //public AudioClip Shout;
     #endregion
     public Text ScaryTextFeel;
 
@@ -67,6 +69,7 @@ class GameStatsControl : MonoBehaviour
     void Start()
     {
         _timerForBrain = 0f;
+        //DeathScream = GetComponent<AudioSource>();
         StartCoroutine(CalmState());
         _playerLooker = GameObject.FindGameObjectWithTag("Player").GetComponent<MouseLooker>();
         GameStatsTranslator.FireSlider = FireSlider;
@@ -115,23 +118,23 @@ class GameStatsControl : MonoBehaviour
         }
         else
         {
-            if (FireSlider.value >= 80f)
+            if (FireSlider.value >= 90f)
             {
-                Animator anim = FireInHand.GetComponent<Animator>();
-                int p = Animator.StringToHash("FireOn");
-                anim.SetTrigger("FireOn");
+                //Animator anim = FireInHand.GetComponent<Animator>();
+                //int p = Animator.StringToHash("FireOn");
+                //anim.SetTrigger("FireOn");
                 IsFired = true;
-                Debug.Log(IsFired.ToString() + " IsFired" + p.ToString());
+                //Debug.Log(IsFired.ToString() + " IsFired" + p.ToString());
                 Invoke("FireHandActivity", 2f);
             }
         }
         if (FireSlider.value <= 0f)
         {
-            Animator anim = FireInHand.GetComponent<Animator>();
-            int p = Animator.StringToHash("FireOff");
+            //Animator anim = FireInHand.GetComponent<Animator>();
+            //int p = Animator.StringToHash("FireOff");
             Invoke("FireHandActivity", 2f);
             IsFired = false;
-            Debug.Log(IsFired.ToString() + " IsFired" + p.ToString());
+            //Debug.Log(IsFired.ToString() + " IsFired" + p.ToString());
 
         }
         _timer += Time.deltaTime;
@@ -213,7 +216,10 @@ class GameStatsControl : MonoBehaviour
             else
             {
                 _timerForBrain += Time.deltaTime;
-                if (_timerForBrain >= 7f) { spec = false; }
+                if (_timerForBrain >= 7f)
+                {
+                    spec = false;
+                }
                 yield return null;
             }
         }
@@ -364,6 +370,8 @@ class GameStatsControl : MonoBehaviour
 
     public void ChangeLevel(int lvl)
     {
+        IsTired = false;
+        IsFired = false;
         SceneManager.LoadScene(lvl);
     }
 
@@ -387,7 +395,7 @@ class GameStatsControl : MonoBehaviour
         else
         {
             //FireLight.Play(true);
-            if (FireLight.gameObject.active)
+            if (!FireLight.gameObject.active)
             {
                 FireLight.gameObject.SetActive(true);
             }
@@ -397,6 +405,8 @@ class GameStatsControl : MonoBehaviour
     void Die()
     {
         _dead = true;
+        //DeathScream.Play();
+        //DeathScream.PlayOneShot(Shout, 20f);
         PlayerMovement.enabled = false;
         CanV.gameObject.SetActive(true);
         mouselook.enabled = false;

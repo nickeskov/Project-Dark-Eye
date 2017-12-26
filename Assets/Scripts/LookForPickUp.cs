@@ -13,7 +13,7 @@ class LookForPickUp : MonoBehaviour
     public Slider FireSlider;
 
     public AudioSource Screamer;
-    public AudioClip scream;
+    public AudioClip scream, fire;
 
     Collider InterestingPlace;
 
@@ -102,6 +102,21 @@ class LookForPickUp : MonoBehaviour
 
         FireSlider.value = 100f;
         InterestingPlace.gameObject.tag = "Untagged";
+
+        Screamer.Play();
+        int scene = SceneManager.GetActiveScene().buildIndex;
+        switch (scene)
+        {
+            case 2:
+                Screamer.PlayOneShot(fire, 5F);
+                break;
+            case 3:
+                Screamer.PlayOneShot(fire, 10F);
+                break;
+            case 5:
+                Screamer.PlayOneShot(fire, 20F);
+                break;
+        }
 
         ParticleSystem WallFire = InterestingPlace.GetComponentInChildren<ParticleSystem>();
         Light WallFireLight = InterestingPlace.GetComponentInChildren<Light>();
