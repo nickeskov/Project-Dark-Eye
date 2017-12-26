@@ -37,6 +37,7 @@ public class MazeLoader : MonoBehaviour
                 _mazeCells[r, c] = new MazeCell();
 
                 int chance1 = Random.Range(0, 19);
+                //int screamerchance = Random.Range(0, 100);
 
                 _mazeCells[r, c].Floor = Instantiate(chance1 == 4 ? FloorWithDebris : Floor,
                     new Vector3(r * Size, 0, c * Size - 3f), Quaternion.identity);
@@ -44,7 +45,8 @@ public class MazeLoader : MonoBehaviour
                 _mazeCells[r, c].Floor.transform.parent = parent.transform;
                 _mazeCells[r, c].Floor.name = "Floor " + r + " " + c;
                 _mazeCells[r, c].Floor.transform.Rotate(Vector3.right, 90f);
-
+                //if (screamerchance <= 10) _mazeCells[r, c].Floor.tag = "Screamer";
+                _mazeCells[r, c].Floor.tag = "Screamer";
 
                 if (r == 0)
                 {

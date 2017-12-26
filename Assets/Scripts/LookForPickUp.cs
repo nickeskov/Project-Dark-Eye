@@ -3,11 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 class LookForPickUp : MonoBehaviour {
     public Text PickUpText;
     public Text FoundedItemText;
     public Slider FireSlider;
+    public AudioSource Screamer;
+    public AudioClip scream;
     Collider InterestingPlace;
     bool IsVisited;
     bool IsUsed = false;
@@ -16,6 +19,7 @@ class LookForPickUp : MonoBehaviour {
     {
         InterestingPlace = null;
         IsVisited = false;
+        Screamer = GetComponent<AudioSource>();
     }
     private void Update()
     {
@@ -33,6 +37,16 @@ class LookForPickUp : MonoBehaviour {
                 PickUpText.gameObject.SetActive(true);
                 InterestingPlace = other;
             }
+        }
+
+        if(other.tag == "Screamer")
+        {
+            Debug.Log("Screamer triggered");
+            Screamer.Play();
+            int scene = SceneManager.GetActiveScene().buildIndex;
+            if(scene == 2) Screamer.PlayOneShot(scream, 5F);
+            else if (scene == 3) Screamer.PlayOneShot(scream, 10F);
+            else if (scene == 5) Screamer.PlayOneShot(scream, 20F);
         }
 
 
