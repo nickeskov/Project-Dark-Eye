@@ -15,7 +15,7 @@ class GameStatsControl : MonoBehaviour
     private float _timer = 0f;
 
     public ParticleSystem FireLight;
-    public static float FireValue = 10f;
+    public static float FireValue = 0.7f;
     #endregion
 
     #region Running Variables
