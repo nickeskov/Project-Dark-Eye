@@ -69,19 +69,19 @@ class GameStatsControl : MonoBehaviour
         _timerForBrain = 0f;
         StartCoroutine(CalmState());
         _playerLooker = GameObject.FindGameObjectWithTag("Player").GetComponent<MouseLooker>();
+        GameStatsTranslator.FireSlider = FireSlider;
+        GameStatsTranslator._timerForBrain = _timerForBrain;
     }
 
     void Update()
     {
         // if (!IsFired) { if (OnFired) { IsFired = true; } }
 
-
-
-        //RefreshGameStatsTranslator();
+        RefreshGameStatsTranslator();
         FireSliderControl(FireValue);
         RunSliderControl();
         IsCheatActive();
-        //UpdateFromGameStatsTranslator();
+        UpdateStatsFromGameStatsTranslator();
     }
 
     void IsCheatActive()
@@ -381,12 +381,16 @@ class GameStatsControl : MonoBehaviour
     {
         if (!IsFired)
         {
-            FireLight.Stop(true);
+            //FireLight.Stop(true);
             FireLight.gameObject.SetActive(false);
         }
         else
         {
-            FireLight.Play(true);
+            //FireLight.Play(true);
+            if (FireLight.gameObject.active)
+            {
+                FireLight.gameObject.SetActive(true);
+            }
         }
     }
 
@@ -411,16 +415,20 @@ class GameStatsControl : MonoBehaviour
     }
 
 
-    private void UpdateFromGameStatsTranslator()
+    private void UpdateStatsFromGameStatsTranslator()
     {
-        _timer = GameStatsTranslator._timer;
+        //_timer = GameStatsTranslator._timer;
+        //GameStatsTranslator.FireSlider = FireSlider;
         _timerForBrain = GameStatsTranslator._timerForBrain;
     }
 
     private void RefreshGameStatsTranslator()
     {
-        GameStatsTranslator.FireSlider = FireSlider;
-        GameStatsTranslator._timer = _timer;
-        GameStatsTranslator._timerForBrain = _timerForBrain;
+        //GameStatsTranslator.FireSlider = FireSlider;
+        //GameStatsTranslator._timer = _timer;
+        if (GameStatsTranslator._timerForBrain != _timerForBrain)
+        {
+            GameStatsTranslator._timerForBrain = _timerForBrain;
+        }
     }
 }
