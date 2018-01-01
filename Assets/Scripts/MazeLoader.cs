@@ -10,7 +10,7 @@ public class MazeLoader : MonoBehaviour
     public GameObject FloorWithDebris;
     public GameObject parent;
     public Material mater, exit;
-    public int Rows, Columns;
+    public int Rows = 16, Columns = 16;
 
     public float MinRowsLabirinthPart = 0.25f;
     public float MinColumnsLabirinthPart = 0.25f;
@@ -57,7 +57,7 @@ public class MazeLoader : MonoBehaviour
                     _mazeCells[r, c].NorthWall.transform.Rotate(Vector3.up * 90f);
                 }
 
-                _mazeCells[r, c].SoughtWall = Instantiate(chance1 == 3 ? WallFire : wall,
+                _mazeCells[r, c].SoughtWall = Instantiate(chance1 == 3 || chance1 == 6 || chance1 == 9 ? WallFire : wall,
                     new Vector3(r * Size + Size / 2f, 0, c * Size), Quaternion.identity);
 
                 _mazeCells[r, c].SoughtWall.transform.parent = parent.transform;

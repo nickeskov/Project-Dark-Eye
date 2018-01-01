@@ -1,5 +1,7 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
+using Random = UnityEngine.Random;
 
 public class HuntAndKillAlgoritm : MazeAlgoritm
 {
@@ -32,8 +34,8 @@ public class HuntAndKillAlgoritm : MazeAlgoritm
     {
         while (RouteStillAvailiable(currentRow, currentColumn))
         {
-            //  int direction = Random.Range(1,5);
-            int direction = NumberGenerator.GetNextNumber();
+            int direction = Random.Range(1,5);
+            //int direction = NumberGenerator.GetNextNumber();
 
             if (direction == 1 && CellAvailiable(currentRow - 1, currentColumn))
             {
